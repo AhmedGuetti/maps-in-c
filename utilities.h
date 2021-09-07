@@ -3,5 +3,5 @@
 //Simple output Function using the stanrdart I/O of CPP
 
 template <typename T>
-void Log(T message){std::cout << message << std::endl;}
+void Log(T message){std::cout << message;}
 

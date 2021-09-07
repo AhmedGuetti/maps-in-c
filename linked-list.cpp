@@ -40,10 +40,10 @@ void push(Node** head_ref, int data){
     Node* new_node = creat_node(data);
 
     // Make the new_node point to the first element (become the second)
-    new_node->next = (*head_ref)->next;
+    new_node->next = (*head_ref);
 
     // Reinitialize the head_ref
-    (*head_ref)->next = new_node;
+    (*head_ref) = new_node;
 
 }
 
@@ -143,13 +143,17 @@ int size(Node** head_ref){
 
 void print(Node** head_ref){
 
-
+    Node* curr = *head_ref;
     // Loop all the way to the last element of the list
-    while ((*head_ref)->next != NULL)
+    while (curr->next != NULL)
     {
-        //print the data value and format a little bit
-       Log<int>((*head_ref)->data);
-       Log<const char*>(", ");
+
+                // Add some color to linux Terminale Delete this line if Youare in window
+        Log<const char*>("\033[47;30m");
+                //print the data value and format a little bit
+        Log<int>(curr->data);
+        Log<const char*>(", ");
+       curr= curr->next;
 
     }
     Log<const char*>("\n");
