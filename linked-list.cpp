@@ -73,8 +73,6 @@ void append(Node** head_ref, int data){
     
 
 }
-
-
 void inserte(Node** head_ref, int pos,int data){
     // Make a node in the memory and give the default property
     Node* new_node = creat_node(data);
@@ -94,7 +92,7 @@ void inserte(Node** head_ref, int pos,int data){
     Node* curr = *head_ref;
 
     // Traverse till the element befor the position (=pos)
-    for (int i = 1; i < pos - 1; i++)
+    for (int i = 1; i < pos; i++)
     {
        curr = curr->next;
 
@@ -109,10 +107,37 @@ void inserte(Node** head_ref, int pos,int data){
     // Just think about it for a moment!
     new_node->next = curr->next;
     curr->next = new_node;
+}
 
+void pop(Node** head_ref){
+    // Save the first elelemt address to not lose it in the process
+    Node* temp = *head_ref;
+
+    // Reinitialize the head
+    *head_ref = (*head_ref)->next;
+
+    // free the address of the first old node
+    delete temp;
+}
+
+
+void pop_back(Node** head_ref){
+
+    Node* last = (*head_ref)->next;
+    Node* lastprev = *head_ref;
+
+    while (last->next != NULL)
+    {
+        lastprev = lastprev->next;
+        last = last->next;
+    }
     
 
+
 }
+
+
+
 
 
 

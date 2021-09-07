@@ -5,11 +5,11 @@ PROJECT_NAME = main
 
 all: main clear
 
-main: main.o linked-list.o map.o utilities.o utilities.o
-	g++ main.o linked-list.o map.o utilities.o -o main
+main: main.o linked-list.o hash_table.o utilities.o utilities.o
+	g++ main.o linked-list.o hash_table.o utilities.o -o main
 
-main.o: main.cpp map.cpp linked-list.cpp utilities.cpp map.h linked-list.h utilities.h
-	g++ -c ${PROJECT_NAME}.cpp linked-list.cpp map.cpp utilities.cpp
+main.o: main.cpp hash_table.cpp linked-list.cpp utilities.cpp hash_table.h linked-list.h utilities.h
+	g++ -c ${PROJECT_NAME}.cpp linked-list.cpp hash_table.cpp utilities.cpp
 
 clear:
 	rm *.o
