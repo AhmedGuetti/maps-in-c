@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include"utilities.h"
-#include"map.h"
+#include "utilities.h"
+#include "map.h"
 
 
 bool Cmp_Less(const OMap_Key* a, const OMap_Key* b)
