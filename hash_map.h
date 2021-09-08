@@ -1,26 +1,28 @@
-#pragma once
-#define HASH_TABLE_SIZE 10
-#include"utilities.h"
+#ifndef _HASH_MAP_H
+#define _HASH_MAP_H
 
 
-    class pair{
-        public:
+
+#define HASH_TABLE_SIZE 10000
+
+
+
+    typedef struct {
         char* key;
         char* value;
-        pair* next;
+        struct pair* next;
 
-    };
+    }pair;
 
-    class HashTable{
-        public:
+    typedef struct {
         //store the HashTable
         pair** head_refs;
-    };
+    } HashTable;
 
 
 
-    HashTable* init();
-    
+    HashTable* init(); 
+
     int hash(const char* key);
 
     pair* make_node(const char* key, const char* value);
@@ -29,3 +31,4 @@
 
     void print_hash_table(HashTable* table);
 
+#endif

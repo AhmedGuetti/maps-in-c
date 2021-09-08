@@ -1,0 +1,327 @@
+utilities.h:34:1: error: version control conflict marker in file
+   34 | <<<<<<< HEAD
+      | ^~~~~~~
+utilities.h:44:3: warning: data definition has no type or storage class
+   44 | } OM_DataType;
+      |   ^~~~~~~~~~~
+utilities.h:44:3: warning: type defaults to ‘int’ in declaration of ‘OM_DataType’ [-Wimplicit-int]
+utilities.h:45:1: error: version control conflict marker in file
+   45 | =======
+      | ^~~~~~~
+utilities.h:62:10: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘<’ token
+   62 | template <typename T>
+      |          ^
+utilities.h:64:1: error: version control conflict marker in file
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      | ^~~~~~~
+utilities.h:64:9: error: invalid suffix "f252618036beb13f0e0be1500080a052ec9f154" on integer constant
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from main.c:4:
+map.h:41:19: error: field ‘type’ has incomplete type
+   41 |  enum OM_DataType type;
+      |                   ^~~~
+map.h:57:25: error: expected declaration specifiers or ‘...’ before ‘OM_DataType’
+   57 | struct OMap* omap_alloc(OM_DataType key_type, CmpPred cmp_func);
+      |                         ^~~~~~~~~~~
+In file included from main.c:5:
+hash_map.h:13:9: error: unknown type name ‘pair’
+   13 |         pair* next;
+      |         ^~~~
+main.c: In function ‘main’:
+main.c:84:25: warning: implicit declaration of function ‘init_hash_map’; did you mean ‘init_hash_table’? [-Wimplicit-function-declaration]
+   84 |     HashTable* table1 = init_hash_map();
+      |                         ^~~~~~~~~~~~~
+      |                         init_hash_table
+main.c:84:25: warning: initialization of ‘HashTable *’ {aka ‘struct HashTable *’} from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+In file included from map.h:8,
+                 from map.c:1:
+utilities.h:34:1: error: version control conflict marker in file
+   34 | <<<<<<< HEAD
+      | ^~~~~~~
+utilities.h:44:3: warning: data definition has no type or storage class
+   44 | } OM_DataType;
+      |   ^~~~~~~~~~~
+utilities.h:44:3: warning: type defaults to ‘int’ in declaration of ‘OM_DataType’ [-Wimplicit-int]
+utilities.h:45:1: error: version control conflict marker in file
+   45 | =======
+      | ^~~~~~~
+utilities.h:62:10: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘<’ token
+   62 | template <typename T>
+      |          ^
+utilities.h:64:1: error: version control conflict marker in file
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      | ^~~~~~~
+utilities.h:64:9: error: invalid suffix "f252618036beb13f0e0be1500080a052ec9f154" on integer constant
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from map.c:1:
+map.h:41:19: error: field ‘type’ has incomplete type
+   41 |  enum OM_DataType type;
+      |                   ^~~~
+map.h:57:25: error: expected declaration specifiers or ‘...’ before ‘OM_DataType’
+   57 | struct OMap* omap_alloc(OM_DataType key_type, CmpPred cmp_func);
+      |                         ^~~~~~~~~~~
+map.c:16:2: error: expected specifier-qualifier-list before ‘OM_DataType’
+   16 |  OM_DataType KeyType;
+      |  ^~~~~~~~~~~
+map.c:34:25: error: expected declaration specifiers or ‘...’ before ‘OM_DataType’
+   34 | struct OMap* omap_alloc(OM_DataType key_type, CmpPred cmp_func)
+      |                         ^~~~~~~~~~~
+map.c: In function ‘omap_insert_ex’:
+map.c:52:17: error: ‘struct OMap’ has no member named ‘KeyType’
+   52 |  if (!map || map->KeyType != key.type)
+      |                 ^~
+map.c:60:7: error: ‘struct OMap’ has no member named ‘Size’
+   60 |    map->Size = 1;
+      |       ^~
+map.c:74:12: error: ‘struct OMap’ has no member named ‘CmpPredicate’
+   74 |    if (!map->CmpPredicate(&key, &pBack->Key))
+      |            ^~
+map.c:80:11: error: ‘struct OMap’ has no member named ‘Size’
+   80 |      ++map->Size;
+      |           ^~
+map.c:93:11: error: ‘struct OMap’ has no member named ‘Size’
+   93 |      ++map->Size;
+      |           ^~
+map.c:103:12: error: ‘struct OMap’ has no member named ‘CmpPredicate’
+  103 |     if (map->CmpPredicate(&key, &pFront->Key))
+      |            ^~
+map.c:127:10: error: ‘struct OMap’ has no member named ‘Size’
+  127 |     ++map->Size;
+      |          ^~
+map.c: In function ‘omap_erase’:
+map.c:153:17: error: ‘struct OMap’ has no member named ‘KeyType’
+  153 |  if (!map || map->KeyType != key.type)
+      |                 ^~
+map.c:177:7: error: ‘struct OMap’ has no member named ‘Size’
+  177 |  --map->Size;
+      |       ^~
+map.c: In function ‘omap_clear_all’:
+map.c:203:5: error: ‘struct OMap’ has no member named ‘Size’
+  203 |  map->Size = 0;
+      |     ^~
+map.c: In function ‘omap_size’:
+map.c:226:18: error: ‘struct OMap’ has no member named ‘Size’
+  226 |  return map ? map->Size : 0;
+      |                  ^~
+In file included from hash_map.h:7,
+                 from hash_map.c:1:
+utilities.h:34:1: error: version control conflict marker in file
+   34 | <<<<<<< HEAD
+      | ^~~~~~~
+utilities.h:44:3: warning: data definition has no type or storage class
+   44 | } OM_DataType;
+      |   ^~~~~~~~~~~
+utilities.h:44:3: warning: type defaults to ‘int’ in declaration of ‘OM_DataType’ [-Wimplicit-int]
+utilities.h:45:1: error: version control conflict marker in file
+   45 | =======
+      | ^~~~~~~
+utilities.h:62:10: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘<’ token
+   62 | template <typename T>
+      |          ^
+utilities.h:64:1: error: version control conflict marker in file
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      | ^~~~~~~
+utilities.h:64:9: error: invalid suffix "f252618036beb13f0e0be1500080a052ec9f154" on integer constant
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+hash_map.c: In function ‘init_hash_table’:
+hash_map.c:66:43: error: invalid application of ‘sizeof’ to incomplete type ‘pair’ {aka ‘struct pair’}
+   66 |         table->head_refs = malloc (sizeof(pair)*HASH_TABLE_SIZE);
+      |                                           ^~~~
+hash_map.c: In function ‘make_node’:
+hash_map.c:100:52: error: invalid application of ‘sizeof’ to incomplete type ‘pair’ {aka ‘struct pair’}
+  100 |         pair* new_node      =       malloc (sizeof(pair) * 1);
+      |                                                    ^~~~
+hash_map.c:101:17: error: dereferencing pointer to incomplete type ‘pair’ {aka ‘struct pair’}
+  101 |         new_node->key       =       malloc (strlen(key) + 1);      //Add 1 for "\0"
+      |                 ^~
+In file included from utilities.c:1:
+utilities.h:34:1: error: version control conflict marker in file
+   34 | <<<<<<< HEAD
+      | ^~~~~~~
+utilities.h:44:3: warning: data definition has no type or storage class
+   44 | } OM_DataType;
+      |   ^~~~~~~~~~~
+utilities.h:44:3: warning: type defaults to ‘int’ in declaration of ‘OM_DataType’ [-Wimplicit-int]
+utilities.h:45:1: error: version control conflict marker in file
+   45 | =======
+      | ^~~~~~~
+utilities.h:62:10: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘<’ token
+   62 | template <typename T>
+      |          ^
+utilities.h:64:1: error: version control conflict marker in file
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      | ^~~~~~~
+utilities.h:64:9: error: invalid suffix "f252618036beb13f0e0be1500080a052ec9f154" on integer constant
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from map.h:8,
+                 from map.c:1:
+utilities.h:34:1: error: version control conflict marker in file
+   34 | <<<<<<< HEAD
+      | ^~~~~~~
+utilities.h:44:3: warning: data definition has no type or storage class
+   44 | } OM_DataType;
+      |   ^~~~~~~~~~~
+utilities.h:44:3: warning: type defaults to ‘int’ in declaration of ‘OM_DataType’ [-Wimplicit-int]
+utilities.h:45:1: error: version control conflict marker in file
+   45 | =======
+      | ^~~~~~~
+utilities.h:62:10: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘<’ token
+   62 | template <typename T>
+      |          ^
+utilities.h:64:1: error: version control conflict marker in file
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      | ^~~~~~~
+utilities.h:64:9: error: invalid suffix "f252618036beb13f0e0be1500080a052ec9f154" on integer constant
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from map.c:1:
+map.h:41:19: error: field ‘type’ has incomplete type
+   41 |  enum OM_DataType type;
+      |                   ^~~~
+map.h:57:25: error: expected declaration specifiers or ‘...’ before ‘OM_DataType’
+   57 | struct OMap* omap_alloc(OM_DataType key_type, CmpPred cmp_func);
+      |                         ^~~~~~~~~~~
+map.c:16:2: error: expected specifier-qualifier-list before ‘OM_DataType’
+   16 |  OM_DataType KeyType;
+      |  ^~~~~~~~~~~
+map.c:34:25: error: expected declaration specifiers or ‘...’ before ‘OM_DataType’
+   34 | struct OMap* omap_alloc(OM_DataType key_type, CmpPred cmp_func)
+      |                         ^~~~~~~~~~~
+map.c: In function ‘omap_insert_ex’:
+map.c:52:17: error: ‘struct OMap’ has no member named ‘KeyType’
+   52 |  if (!map || map->KeyType != key.type)
+      |                 ^~
+map.c:60:7: error: ‘struct OMap’ has no member named ‘Size’
+   60 |    map->Size = 1;
+      |       ^~
+map.c:74:12: error: ‘struct OMap’ has no member named ‘CmpPredicate’
+   74 |    if (!map->CmpPredicate(&key, &pBack->Key))
+      |            ^~
+map.c:80:11: error: ‘struct OMap’ has no member named ‘Size’
+   80 |      ++map->Size;
+      |           ^~
+map.c:93:11: error: ‘struct OMap’ has no member named ‘Size’
+   93 |      ++map->Size;
+      |           ^~
+map.c:103:12: error: ‘struct OMap’ has no member named ‘CmpPredicate’
+  103 |     if (map->CmpPredicate(&key, &pFront->Key))
+      |            ^~
+map.c:127:10: error: ‘struct OMap’ has no member named ‘Size’
+  127 |     ++map->Size;
+      |          ^~
+map.c: In function ‘omap_erase’:
+map.c:153:17: error: ‘struct OMap’ has no member named ‘KeyType’
+  153 |  if (!map || map->KeyType != key.type)
+      |                 ^~
+map.c:177:7: error: ‘struct OMap’ has no member named ‘Size’
+  177 |  --map->Size;
+      |       ^~
+map.c: In function ‘omap_clear_all’:
+map.c:203:5: error: ‘struct OMap’ has no member named ‘Size’
+  203 |  map->Size = 0;
+      |     ^~
+map.c: In function ‘omap_size’:
+map.c:226:18: error: ‘struct OMap’ has no member named ‘Size’
+  226 |  return map ? map->Size : 0;
+      |                  ^~
+In file included from om_string.h:8,
+                 from om_string.c:4:
+utilities.h:34:1: error: version control conflict marker in file
+   34 | <<<<<<< HEAD
+      | ^~~~~~~
+utilities.h:44:3: warning: data definition has no type or storage class
+   44 | } OM_DataType;
+      |   ^~~~~~~~~~~
+utilities.h:44:3: warning: type defaults to ‘int’ in declaration of ‘OM_DataType’ [-Wimplicit-int]
+utilities.h:45:1: error: version control conflict marker in file
+   45 | =======
+      | ^~~~~~~
+utilities.h:62:10: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘<’ token
+   62 | template <typename T>
+      |          ^
+utilities.h:64:1: error: version control conflict marker in file
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      | ^~~~~~~
+utilities.h:64:9: error: invalid suffix "f252618036beb13f0e0be1500080a052ec9f154" on integer constant
+   64 | >>>>>>> 0f252618036beb13f0e0be1500080a052ec9f154
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from om_string.c:4:
+om_string.h:20:29: error: return type is an incomplete type
+   20 | OM_STR_API struct OM_string OM_string_cpy(struct OM_string* const to, const struct OM_string* const from)
+      |                             ^~~~~~~~~~~~~
+om_string.h: In function ‘OM_string_cpy’:
+om_string.h:22:2: warning: implicit declaration of function ‘strncpy_s’; did you mean ‘strncpy’? [-Wimplicit-function-declaration]
+   22 |  strncpy_s(to->str_ptr, to->size, from->str_ptr, from->size);
+      |  ^~~~~~~~~
+      |  strncpy
+om_string.h:22:14: error: dereferencing pointer to incomplete type ‘struct OM_string’
+   22 |  strncpy_s(to->str_ptr, to->size, from->str_ptr, from->size);
+      |              ^~
+om_string.h:22:39: error: dereferencing pointer to incomplete type ‘const struct OM_string’
+   22 |  strncpy_s(to->str_ptr, to->size, from->str_ptr, from->size);
+      |                                       ^~
+om_string.h: At top level:
+om_string.h:25:29: error: return type is an incomplete type
+   25 | OM_STR_API struct OM_string OM_new_string_ex(const struct OM_string* const other)
+      |                             ^~~~~~~~~~~~~~~~
+om_string.h: In function ‘OM_new_string_ex’:
+om_string.h:27:9: error: variable ‘data’ has initializer but incomplete type
+   27 |  struct OM_string data = { 0 };
+      |         ^~~~~~~~~
+om_string.h:27:28: warning: excess elements in struct initializer
+   27 |  struct OM_string data = { 0 };
+      |                            ^
+om_string.h:27:28: note: (near initialization for ‘data’)
+om_string.h:27:19: error: storage size of ‘data’ isn’t known
+   27 |  struct OM_string data = { 0 };
+      |                   ^~~~
+om_string.h:34:9: warning: ‘return’ with a value, in function returning void
+   34 |  return data;
+      |         ^~~~
+om_string.h:25:29: note: declared here
+   25 | OM_STR_API struct OM_string OM_new_string_ex(const struct OM_string* const other)
+      |                             ^~~~~~~~~~~~~~~~
+om_string.h: At top level:
+om_string.h:37:29: error: return type is an incomplete type
+   37 | OM_STR_API struct OM_string OM_new_string(const char* str)
+      |                             ^~~~~~~~~~~~~
+om_string.h: In function ‘OM_new_string’:
+om_string.h:39:9: error: variable ‘data’ has initializer but incomplete type
+   39 |  struct OM_string data = { 0 }, out = { 0 };
+      |         ^~~~~~~~~
+om_string.h:39:28: warning: excess elements in struct initializer
+   39 |  struct OM_string data = { 0 }, out = { 0 };
+      |                            ^
+om_string.h:39:28: note: (near initialization for ‘data’)
+om_string.h:39:19: error: storage size of ‘data’ isn’t known
+   39 |  struct OM_string data = { 0 }, out = { 0 };
+      |                   ^~~~
+om_string.h:39:9: error: variable ‘out’ has initializer but incomplete type
+   39 |  struct OM_string data = { 0 }, out = { 0 };
+      |         ^~~~~~~~~
+om_string.h:39:41: warning: excess elements in struct initializer
+   39 |  struct OM_string data = { 0 }, out = { 0 };
+      |                                         ^
+om_string.h:39:41: note: (near initialization for ‘out’)
+om_string.h:39:33: error: storage size of ‘out’ isn’t known
+   39 |  struct OM_string data = { 0 }, out = { 0 };
+      |                                 ^~~
+om_string.h:42:9: warning: ‘return’ with a value, in function returning void
+   42 |  return OM_new_string_ex(&data);
+      |         ^~~~~~~~~~~~~~~~
+om_string.h:37:29: note: declared here
+   37 | OM_STR_API struct OM_string OM_new_string(const char* str)
+      |                             ^~~~~~~~~~~~~
+om_string.h: In function ‘OM_delete_string’:
+om_string.h:48:10: error: dereferencing pointer to incomplete type ‘struct OM_string’
+   48 |  free(str->str_ptr);
+      |          ^~
+
+
+
+
+I can't understand your work nor the error accuse

@@ -1,5 +1,8 @@
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "hash_map.h"
-#include <cstring>
 
 /*
 table =         0x5653f8c0  8eb0    ------->    94918655643312    
@@ -51,15 +54,16 @@ The size of table->arr as a hole = 80
 9	---------->	0xa0xa Adress is 0x55dfc71f0328
 
 */
+
     HashTable* init(){
         //store a pointer to a lonked list
         //An Idetifier of the HashTable
-        HashTable* table = new HashTable();
+        HashTable* table = malloc(sizeof(HashTable) * 1);
 
         //Allocate space for every Entries
         //This is going to stroe the head of HASH_TABLE_SIZE number of pointer to a linked lists
         // This is a linked list implementation HERE!! VERY comfusing
-        table->head_refs = new pair*[HASH_TABLE_SIZE];
+        table->head_refs = malloc (sizeof(pair)*HASH_TABLE_SIZE);
 
         //Inisialize an Empty Hash map
         for (int i = 0; i < HASH_TABLE_SIZE; i++){
@@ -93,9 +97,9 @@ The size of table->arr as a hole = 80
     pair* make_node(const char* key, const char* value){
 
             //Allocate space for the linked list NODE
-        pair* new_node = new pair[1];
-        new_node->key = new char[strlen(key) + 1];      //Add 1 for "\0"
-        new_node->value = new char[strlen(value) + 1];  //Add 1 for "\0"
+        pair* new_node      =       malloc (sizeof(pair) * 1);
+        new_node->key       =       malloc (strlen(key) + 1);      //Add 1 for "\0"
+        new_node->value     =       malloc (strlen(value) + 1);  //Add 1 for "\0"
             
             //copy the key and the value in place 
             //If we work with number we can just assigne them like we did in the linked list
@@ -109,12 +113,6 @@ The size of table->arr as a hole = 80
 
     return new_node;
     }
-
-
-
-
-
-
 
     void insert_pair(HashTable* table, const char* key, const char* value){
         
@@ -136,8 +134,8 @@ The size of table->arr as a hole = 80
         while (head_ref != NULL)
         {
             if(strcmp(head_ref->key, key) == 0){
-                delete head_ref->value;
-                head_ref->value = new char[strlen(value) + 1];
+                free(head_ref->value);
+                head_ref->value = malloc (strlen(value) + 1);
                 strcpy(head_ref->value, value);
                 return;
             }
@@ -154,8 +152,6 @@ The size of table->arr as a hole = 80
     }
 
 
-
-
 void print_hash_table(HashTable* table){
 
     for (int i = 0; i < HASH_TABLE_SIZE; i++){
@@ -164,13 +160,14 @@ void print_hash_table(HashTable* table){
         if(head_ref == NULL)
             continue;
         
-        std::cout<<"place["<< i <<"] : ";
+
+        printf("palce[%d] :\t", i);
         //Going throw every and each element in the given slot and print every node in the linked list 
         while (head_ref != NULL){
-            std::cout<<head_ref->key <<" = "<<head_ref->value;
+            printf("%s = %s\t", head_ref->key, head_ref->value);
             head_ref = head_ref->next;
         }
-        std::cout<<"\n";
+        printf("\n");
     }
 }
 
