@@ -1,6 +1,6 @@
 #include<iostream>
 #include"utilities.h"
-#include"hash_table.h"
+#include"hash_map.h"
 #include"linked-list.h"
 
 
@@ -8,10 +8,11 @@
 
 int main(int argc, char **argv){
 
-    hash_map::hash_table** hash_ref_1 = hash_map::init();
+    pair** arr = init();
 
-    //hash_map::print(hash_ref_1);
-
+    InsertNode(arr, 5, "Hello");
+       
+    print_hash_map(arr);
     std::cin.get();
     return 0;
 }
