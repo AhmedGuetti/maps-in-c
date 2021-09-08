@@ -21,6 +21,3 @@ typedef const unsigned long int c_u_l_int;      // 16bits
 template <typename T>
 void Log(T message){std::cout << message;}
 
-
-
-u_int strlen(string text);

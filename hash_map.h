@@ -1,37 +1,31 @@
 #pragma once
-#define HASH_TABLE_SIZE 100
+#define HASH_TABLE_SIZE 10
 #include"utilities.h"
 
 
     class pair{
         public:
-        int key;
-        const char* value;
+        char* key;
+        char* value;
+        pair* next;
 
-        pair(int key, const char* value){
-            this->key = key;
-            this->value = value;
-        }
     };
 
     class HashTable{
         public:
-        //The data we are storing are key_value pair
-        pair value;
-
-        // store the next element of the linked list in collisian caases
-        HashTable* next;
-
         //store the HashTable
-        pair** arr;
+        pair** head_refs;
     };
 
 
 
-pair** init();
+    HashTable* init();
+    
+    int hash(const char* key);
 
-unsigned int hash(int key);
+    pair* make_node(const char* key, const char* value);
 
-void InsertNode(pair** arr, int key, const char* value);
+    void insert_pair(HashTable* table, const char* key, const char* value);
 
-void print_hash_map(pair** arr);
+    void print_hash_table(HashTable* table);
+
