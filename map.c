@@ -1,5 +1,6 @@
 #include "map.h"
 
+
 typedef struct OMap_Node
 {
 	struct OMap_Node* NextNode;
@@ -10,53 +11,24 @@ typedef struct OMap_Node
 
 struct OMap
 {
-	OMap_Node* Element;
+	OMap_Node* Root;
 
 	OM_DataType KeyType;
 	CmpPred CmpPredicate;
+	size_t Size;
 };
 
 
 #define OMAP_ALLOC_NODE (OMap_Node*)(calloc(1, sizeof(OMap_Node)))
 
+#define OMAP_FREE_NODE(NODE) free((void*)(NODE))
+
+#define OMAP_NODE_COPY(SRC, KEY, VAL)					\
+		memcpy(&(SRC->Key), &KEY, sizeof(OMap_Key));	\
+		memcpy(&(SRC->Value), &VAL, sizeof(OMap_Value))
 
 
-OMAP_API bool omap_new_node_internal(struct OMap_Node** cur, const OMap_Key* key, const OMap_Value* val)
-{
-	if (!*cur)
-	{
-		*cur = OMAP_ALLOC_NODE;
-		if (*cur)
-		{
-			(*cur)->NextNode = 0;
-
-			memcpy(&(*cur)->Key, key, sizeof(OMap_Key));
-			memcpy(&(*cur)->Value, val, sizeof(OMap_Value));
-			return true;
-		}
-		else return false;
-	}
-	else
-	{
-		OMap_Node* oldnext = (*cur)->NextNode;
-		(*cur)->NextNode = OMAP_ALLOC_NODE;
-		if (!(*cur)->NextNode)
-		{
-			(*cur)->NextNode = oldnext;
-			return false;
-		}
-		else
-		{
-			(*cur)->NextNode->NextNode = oldnext;
-
-			memcpy(&(*cur)->NextNode->Key, key, sizeof(OMap_Key));
-			memcpy(&(*cur)->NextNode->Value, val, sizeof(OMap_Value));
-			return true;
-		}
-	}
-}
-
-
+#define OMAP_KEY_EQ(NODE, KEY) (!memcmp(&NODE->Key.value, &KEY.value, KEY.size))
 
 
 struct OMap* omap_alloc(OM_DataType key_type, CmpPred cmp_func)
@@ -67,62 +39,197 @@ struct OMap* omap_alloc(OM_DataType key_type, CmpPred cmp_func)
 	{
 		map->KeyType = key_type;
 		map->CmpPredicate = cmp_func;
-		map->Element = 0;
 	}
 
 	return map;
 }
 
 
-bool omap_insert(struct OMap* map, const OMap_Key key, const OMap_Value val)
+
+
+bool omap_insert_ex(struct OMap* map, const OMap_Key key, const OMap_Value val, bool overwrite, bool fail)
 {
 	if (!map || map->KeyType != key.type)
 		return false;
 
-
-	OMap_Node** pCur = &map->Element;
-	if (!*pCur)
+	if (!map->Root)
 	{
-		return omap_new_node_internal(pCur, &key, &val);
+		if (map->Root = OMAP_ALLOC_NODE)
+		{
+			OMAP_NODE_COPY(map->Root, key, val);
+			map->Size = 1;
+			return true;
+		}
+		else return false;
 	}
 	else
 	{
-		struct OMap_Node* pNext = (*pCur)->NextNode;
-		while (pNext)
+		// find the best(smallest, biggest, ..., most compatible) element for insertion, by the predicate function
+		OMap_Node* pBack = map->Root,* pFront = pBack->NextNode;
+
+		// only one element in the list, decide if we should back or front insert it
+		if (!pFront)
 		{
-			if (map->CmpPredicate(&key, &(*pCur)->Key))
-				break;
-
-			pCur = &(*pCur)->NextNode;
-			pNext = (*pCur)->NextNode;
+			// insert head or tail
+			if (!map->CmpPredicate(&key, &pBack->Key))
+			{
+				if (pBack->NextNode = OMAP_ALLOC_NODE)
+				{
+					OMap_Node* pNode = pBack->NextNode;
+					OMAP_NODE_COPY(pNode, key, val);
+					++map->Size;
+					return true;
+				}
+				else return false;
+			}
+			else
+			{
+				OMap_Node* pTmp = pBack;
+				if (map->Root = OMAP_ALLOC_NODE)
+				{
+					OMap_Node* pNode = map->Root;
+					OMAP_NODE_COPY(pNode, key, val);
+					pNode->NextNode = pBack;
+					++map->Size;
+					return true;
+				}
+				else return false;
+			}
 		}
+		else
+		{
+			while (pFront)
+			{
+				if (map->CmpPredicate(&key, &pFront->Key))
+					break;
 
-		return omap_new_node_internal(pCur, &key, &val);
+				pBack = pFront;
+				pFront = pFront->NextNode;
+			}
+
+			if (OMAP_KEY_EQ(pBack, key))
+			{
+				if (fail)
+					return false;
+				else if (overwrite)
+				{
+					memcpy(&pBack->Value, &val, sizeof(OMap_Value));
+					return true;
+				}
+			}
+
+			OMap_Node* pTmp = pBack->NextNode;
+			if (pBack->NextNode = OMAP_ALLOC_NODE)
+			{
+				OMap_Node* pNode = pBack->NextNode;
+				OMAP_NODE_COPY(pBack->NextNode, key, val);
+				pNode->NextNode = pTmp;
+				++map->Size;
+				return true;
+			}
+			else return false;
+		}
 	}
 }
 
-
-void omap_erase(struct OMap* map, const OMap_Key key)
+bool omap_merge(struct OMap* map, struct OMap* othermap, bool overwrite)
 {
+	if (!map || othermap == map || !map)
+		return false;
 
+	for (struct OMap_Iterator cur = omap_iterator_first(othermap); cur.Current != 0; omap_iterator_next(&cur))
+	{
+		if (omap_insert_ex(map, cur.Current->Key, cur.Current->Value, overwrite, false))
+			return false;
+	}
+
+	omap_release(othermap);
+	return true;
+}
+
+
+bool omap_erase(struct OMap* map, const OMap_Key key)
+{
+	if (!map || map->KeyType != key.type)
+		return false;
+
+	OMap_Node* pNode;
+	OMap_Node** pBack = &map->Root,* pFront = (*pBack)->NextNode;
+	// find by memcmp each key
+	while (true)
+	{
+		if (OMAP_KEY_EQ((*pBack), key))
+			goto KeyFound;
+		// alternatively we can add 'if (OMAP_KEY_EQ((*pBack), key))' after the end of 'while (pFront)' instead of checking if pFront was NULL
+		else if (!pFront)
+			break;
+
+		pBack = &(*pBack)->NextNode;
+		pFront = (*pBack)->NextNode;
+	}
+	return false;
+
+KeyFound:
+
+	pNode = *pBack;
+	*pBack = pFront;
+	free(pNode);
+	--map->Size;
+
+	return true;
 }
 
 
 void omap_clear_all(struct OMap* map)
 {
+	if (!map)
+		return;
 
+	OMap_Node* pBack = map->Root;
+
+	while (true)
+	{
+		OMap_Node* pTmp = pBack;
+		pBack = pBack ? pBack->NextNode : NULL;
+
+		if (pTmp)
+			free(pTmp);
+
+		if (!pBack)
+			break;
+	}
+
+	map->Root = NULL;
+	map->Size = 0;
 }
 
 
 bool omap_contains(struct OMap * map, const OMap_Key key)
 {
+	OMap_Node* pBack = map->Root,* pFront = pBack->NextNode;
+	while (true)
+	{
+		if (OMAP_KEY_EQ(pBack, key))
+			return true;
+		// alternatively we can add 'if (OMAP_KEY_EQ((*pBack), key))' after the end of 'while (pFront)' instead of checking if pFront was NULL
+		else if (!pFront)
+			break;
+
+		pBack = pBack->NextNode;
+		pFront = pBack->NextNode;
+	}
 	return false;
+}
+
+size_t omap_size(struct OMap* map)
+{
+	return map ? map->Size : 0;
 }
 
 
 struct OMap_Iterator omap_iterator_first(struct OMap* map)
 {
-	struct OMap_Iterator iter = { map ? map->Element : 0 };
+	struct OMap_Iterator iter = { map ? map->Root : 0 };
 	return  iter;
 }
 
@@ -149,5 +256,5 @@ bool omap_iterator_next(struct OMap_Iterator* iterator)
 void omap_release(struct OMap* map)
 {
 	omap_clear_all(map);
-
+	free(map);
 }

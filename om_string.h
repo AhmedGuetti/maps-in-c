@@ -49,4 +49,6 @@ OM_STR_API void OM_delete_string(struct OM_string* str)
 	str->size = 0;
 }
 
+int OM_format(char* buffer, size_t len, char* fmt, ...);
+
 #endif
