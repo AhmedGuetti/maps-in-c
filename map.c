@@ -107,7 +107,7 @@ bool omap_insert_ex(struct OMap* map, const OMap_Key key, const OMap_Value val, 
 				pFront = pFront->NextNode;
 			}
 
-			if (OMAP_KEY_EQ(pBack, key))
+			if ((fail || overwrite) && OMAP_KEY_EQ(pBack, key))
 			{
 				if (fail)
 					return false;
