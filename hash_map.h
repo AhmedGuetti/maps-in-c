@@ -2,33 +2,42 @@
 #define _HASH_MAP_H
 
 
-
-#define HASH_TABLE_SIZE 10000
-
-
-
-    typedef struct {
-        char* key;
-        char* value;
-        struct pair* next;
-
-    }pair;
-
-    typedef struct {
-        //store the HashTable
-        pair** head_refs;
-    } HashTable;
+#define HASH_MAP_SIZE 10
 
 
 
-    HashTable* init(); 
+struct Node {
+    int key;
+    int value;
+    struct Node* next;
+};
 
-    int hash(const char* key);
 
-    pair* make_node(const char* key, const char* value);
+typedef struct Node Node;
 
-    void insert_pair(HashTable* table, const char* key, const char* value);
 
-    void print_hash_table(HashTable* table);
+
+//Function here
+
+
+Node* make_node(int key, int value);
+
+int hash(int key);
+
+Node*** make_table();
+
+void insert_node(Node*** table, int key, int value);
+
+void delete_node(Node*** table , int key);
+
+int get_node(Node*** table, int key);
+
+void display(Node*** table);
+
+
+
+
+
+
 
 #endif
